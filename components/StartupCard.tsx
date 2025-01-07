@@ -3,9 +3,15 @@ import { Button } from "./ui/button";
 import Image from 'next/image';
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
+import { Startup, Author } from "@/sanity/types";
+
+export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
 const StartupCard = ({ post }: { post: StartupCardType }) => {
-  const {_createdAt,views, author:{id:authorId, name},title,id,image, description, category} = post
+
+  const { _createdAt, views, author, title, _id, image, description, category } = post
+
+
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -19,14 +25,14 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
       </div>
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
-          <Link href={`/user/${authorId}`}>
-            <p className="text-16-medium line-clamp-1">{name}</p>
+          <Link href={`/user/${author?._id}`}>
+            <p className="text-16-medium line-clamp-1">{author?.username}</p>
           </Link>
-          <Link href={`/startup/${id}`}>
+          <Link href={`/startup/${_id}`}>
            <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <Link href={`/user/${authorId}`}> 
+        <Link href={`/user/${author?._id}`}> 
                           <Image 
                             src="https://placehold.co/600x600" 
                             alt="placeholder" 
@@ -36,19 +42,19 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
                            />
         </Link>
       </div>
-         <Link href={`/startup/${id}`}> 
+         <Link href={`/startup/${_id}`}> 
            <p className="startup-card_desc">
              {description}
-          </p>
-          <img src={image} alt="placeholder" className="startup-card_img"/>
-      </Link>
+           </p>
+          <img src={image} alt={author?.username}  className="startup-card_img "  width={40} height={40}/>
+         </Link>
     
       <div className="flex-between gap-3 mt-5">
-         <Link href={`/?query=${category.toLowerCase()}`}>
+         <Link href={`/?query=${category?.toLowerCase()}`}>
            <p className="text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
-          <Link href={`/startup/${id}`}>
+          <Link href={`/startup/${_id}`}>
             Details
           </Link>
         </Button>

@@ -12,7 +12,7 @@ export const author = defineType({
       type: 'number',
     }),
     defineField({
-      name: 'authorName', 
+      name: 'AuthorName', 
       type: 'string',
     }),
     defineField({
@@ -30,7 +30,7 @@ export const author = defineType({
   ],
   preview: {
     select: {
-      title:"authorName", 
+      title:"AuthorName", 
     }
   }
 });

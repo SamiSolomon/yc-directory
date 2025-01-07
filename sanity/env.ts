@@ -14,6 +14,7 @@ function assertValue<T>(value: T | undefined, errorMessage: string, options?: As
   return value;
 }
 
+export const token = process.env.SANITY_WRITE_TOKEN;
 // Export configuration values
 export const apiVersion = 
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-12-24';
