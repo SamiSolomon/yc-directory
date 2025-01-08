@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from "@/auth";
 import StartupForm from "@/components/StartupForm";
 import { redirect } from "next/navigation";
